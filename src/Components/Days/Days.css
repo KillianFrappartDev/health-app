@@ -1,0 +1,8 @@
+.days {
+    width: 80%;
+    margin: 0 auto;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}

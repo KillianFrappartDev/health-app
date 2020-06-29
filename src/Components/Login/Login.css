@@ -1,0 +1,26 @@
+.login {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 6rem;
+    padding: 1rem;
+}
+
+.login input {
+    margin-bottom: 1rem;
+}
+
+.login__button {
+    border: 1px solid black;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}

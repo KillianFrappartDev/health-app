@@ -1,25 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import { useSelector } from 'react-redux';
+
+
+import Home from './Pages/Home/Home';
+import Users from './Pages/Users/Users';
+import Auth from './Pages/Auth/Auth';
+import Profile from './Pages/Profile/Profile';
+import Navbar from './Components/Navbar/Navbar';
 import './App.css';
 
 function App() {
+  const isAuth = useSelector(state => state.auth.isAuthenticated);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <div className="main">
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          {isAuth && (
+            <Route path="/users" exact>
+              <Users />
+            </Route>
+          )}
+          {isAuth && (
+            <Route path="/profile" exact>
+              <Profile />
+            </Route>
+          )}
+          {!isAuth && <Route path="/auth" exact>
+            <Auth />
+          </Route>}
+          <Redirect to="/" />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
