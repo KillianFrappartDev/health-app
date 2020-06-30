@@ -1,9 +1,9 @@
 const initialState = [];
-
+ 
 function reducer(state = initialState, action){
 switch (action.type) {
-  case "ADD" :
-    return [...state, { id: action.payload.id, score: action.payload.score, date: action.payload.date }];
+  case "..." :
+    return state;
 
     default:
       return state;

@@ -10,9 +10,10 @@ const user = useSelector(state => state.auth.id)
 
 function clickHandler() {
   axios
-    .post(`https://health-app-13120.firebaseio.com/${user}.json`, {
+    .post(`https://health-app-13120.firebaseio.com/DAYS/${user}.json`, {
       date: new Date().toDateString(),
-      score: "S+"
+      score: "S+",
+      id: Math.random()
     })
     .then((response) => {
       dispatch({type: "ADD", payload: {date: new Date().toDateString(), score: "S+"}});

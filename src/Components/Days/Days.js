@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import Day from '../Day/Day';
 import './Days.css';

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 
 import Home from './Pages/Home/Home';
-import Users from './Pages/Users/Users';
+import UserPage from './Pages/UserPage/UserPage';
 import Auth from './Pages/Auth/Auth';
 import Profile from './Pages/Profile/Profile';
 import Navbar from './Components/Navbar/Navbar';
@@ -28,7 +28,7 @@ function App() {
           </Route>
           {isAuth && (
             <Route path="/users" exact>
-              <Users />
+              <UserPage />
             </Route>
           )}
           {isAuth && (

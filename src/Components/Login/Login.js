@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import "./Login.css";
@@ -7,9 +7,11 @@ import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [signUp, setSignUp] = useState(true);
 
   const dispatch = useDispatch();
+  const id = useSelector(state => state.auth.id);
 
   function emailHandler(e) {
     setEmail(e.target.value);
@@ -17,6 +19,10 @@ function Login() {
 
   function passwordHandler(e) {
     setPassword(e.target.value);
+  }
+
+  function nameHandler(e) {
+    setName(e.target.value);
   }
 
   function signUpHandler() {
@@ -27,7 +33,15 @@ function Login() {
       )
       .then((response) => {
         console.log(response);
+        dispatch({
+          type: "LOGIN",
+          payload: { id: response.data.localId, token: response.data.idToken },
+        });
         console.log("SIGNED UP");
+        axios
+          .post(`https://health-app-13120.firebaseio.com/USERS/${name}.json`, { name: name, id: response.data.localId, score: "50%" })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +74,15 @@ function Login() {
   return (
     <div className="login">
       <h2 className="login__title">{signUp ? "Sign Up" : "Sign In"}</h2>
+      {signUp && <label htmlFor="name">Name :</label>}
+      {signUp && (
+        <input
+          onChange={nameHandler}
+          type="text"
+          placeholder="Enter your name..."
+          id="name"
+        />
+      )}
       <label htmlFor="email">Email :</label>
       <input
         onChange={emailHandler}
@@ -76,11 +99,14 @@ function Login() {
         placeholder="Enter your password..."
         id="password"
       />
-      <div onClick={signUp ? signUpHandler : signInHandler} className="login__button">
+      <div
+        onClick={signUp ? signUpHandler : signInHandler}
+        className="login__button"
+      >
         Submit
       </div>
       <div onClick={toggleHandler} className="login__button">
-          {signUp ? "Sign In" : "Sign Up"}
+        {signUp ? "Sign In" : "Sign Up"}
       </div>
     </div>
   );

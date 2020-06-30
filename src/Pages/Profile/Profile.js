@@ -11,7 +11,7 @@ function Profile() {
   const [daysArr, setDaysArr] = useState([]);
 
   useEffect(() => {
-      axios.get(`https://health-app-13120.firebaseio.com/${id}.json`)
+      axios.get(`https://health-app-13120.firebaseio.com/DAYS/${id}.json`)
       .then(response => {
         const newArr = [];
         const newItem = response.data;
