@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     height: 40vh;
-    background-color: green;
+    background-color: #a2de96;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,10 +16,10 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 2rem;
-    width: 10rem;
-    height: 4rem;
-    background-color: red;
+    bottom: -3rem;
+    width: 12rem;
+    height: 6rem;
+    background-color: #fa7d09;
     z-index: 9;
     display: flex;
     justify-content: center;

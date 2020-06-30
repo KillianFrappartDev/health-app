@@ -39,7 +39,7 @@ function Login() {
         });
         console.log("SIGNED UP");
         axios
-          .post(`https://health-app-13120.firebaseio.com/USERS/${name}.json`, { name: name, id: response.data.localId, score: "50%" })
+          .post(`https://health-app-13120.firebaseio.com/USERS/${name}.json`, { name: name, id: response.data.localId, score: "0" })
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
       })
@@ -99,14 +99,17 @@ function Login() {
         placeholder="Enter your password..."
         id="password"
       />
-      <div
-        onClick={signUp ? signUpHandler : signInHandler}
-        className="login__button"
-      >
-        Submit
-      </div>
-      <div onClick={toggleHandler} className="login__button">
-        {signUp ? "Sign In" : "Sign Up"}
+      <div className="login__buttons">
+        <div
+          onClick={signUp ? signUpHandler : signInHandler}
+          className="login__button"
+        >
+          Submit
+        </div>
+        <h2>OR</h2>
+        <div onClick={toggleHandler} className="login__button login__button-toggle">
+          {signUp ? "Sign In" : "Sign Up"}
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import './Users.css';
 
 function Users(props) {
     return (
-      <div>
+      <div className="users">
         {props.userList.map((user) => {
             console.log("USERS:" + user);
           return <User name={user.name} score={user.score} key={user.id} />;
