@@ -1,0 +1,21 @@
+.features {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #a2de96;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.feature__text {
+    margin-top: 2rem;
+    margin-bottom: 0;
+}

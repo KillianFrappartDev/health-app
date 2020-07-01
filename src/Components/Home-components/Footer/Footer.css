@@ -1,0 +1,53 @@
+.footer {
+    width: 100%;
+    margin: 5rem auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222831;
+}
+
+.footer__title {
+    font-size: 4rem;
+    text-decoration: underline;
+    color: #FFF;
+}
+
+.footer__button {
+    width: 14rem;
+    height: 5rem;
+    background-color: #fa7d09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+    font-size: 2.5rem;
+    margin: 4rem auto;
+}
+
+.footer__button:hover {
+    background-color: black;
+}
+
+.footer__button:hover a {
+    color: #FFF;
+}
+
+.footer__social {
+    margin-bottom: 2rem;
+}
+
+.footer__social-icon {
+    margin: 0 2rem;
+}
+
+.icon-facebook {
+    color: #4267B2;
+}
+
+.icon-linkedin {
+    color: #0072b1;
+  }

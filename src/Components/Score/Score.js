@@ -7,30 +7,9 @@ import './Score.css';
 
 function Score(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [scoreVal, setScoreVal] = useState("");
-  const [scoreDisplay, setScoreDisplay] = useState("0");
-  const dispatch = useDispatch();
   const userName = useSelector((state) => state.auth.name);
-  console.log("name !!! : " + userName);
-  console.log(props.scoreNum);
-  
-
-  useEffect(() => {
-    setScoreDisplay(parseInt(props.scoreNum));
-  }, [])
-
-// function clickHandler() {
-//   axios
-//     .post(`https://health-app-13120.firebaseio.com/DAYS/${user}.json`, {
-//       date: new Date().toDateString(),
-//       score: "S+",
-//       id: Math.random()
-//     })
-//     .then((response) => {
-//       dispatch({type: "ADD", payload: {date: new Date().toDateString(), score: "S+"}});
-//     })
-//     .catch((error) => console.log(error));
-// }
+  const currentScore = useSelector(state => state.auth.score);
+  const dispatch = useDispatch();
 
 function clickHandler() {
   setIsOpen(true);
@@ -40,14 +19,12 @@ function closeBackdrop() {
   setIsOpen(false);
 };
 
-function scoreHandler(e) {
-  setScoreVal(e.target.value);
-};
-
-function sumHandler() {
+function sumHandler(result) {
   setIsOpen(false);
-  const helperNum = parseInt(scoreVal) + parseInt(scoreDisplay);
-  setScoreDisplay(helperNum);
+  const helperNum = parseInt(result) + parseInt(currentScore);
+  const fakeId = Math.random();
+  const curDate = new Date().toDateString();
+
   axios
     .get(`https://health-app-13120.firebaseio.com/USERS/${userName}.json`)
     .then((response) => {
@@ -66,7 +43,24 @@ function sumHandler() {
             score: helperNum.toString(),
           }
         )
-        .then((response) => console.log(response))
+        .then((response) =>
+          dispatch({ type: "SCORE", payload: { score: helperNum } })
+        )
+        .then((response) => {
+          axios
+            .post(`https://health-app-13120.firebaseio.com/DAYS/${userName}.json`, {
+              date: curDate,
+              score: result,
+              id: fakeId,
+            })
+            .then((response) => {
+              dispatch({
+                type: "ADD",
+                payload: { date: curDate, score: result, id: fakeId },
+              });
+            })
+            .catch((error) => console.log(error));
+        })
         .catch((error) => console.log(error));
     })
     .catch((error) => console.log(error));
@@ -74,7 +68,7 @@ function sumHandler() {
 
     return (
       <React.Fragment>
-        {isOpen && <Modal closeAction={closeBackdrop} scoreAction={scoreHandler} sumAction={sumHandler} />}
+        {isOpen && <Modal closeAction={closeBackdrop} sumAction={sumHandler} />}
         <div className="score">
           <h1 className="score__percent">{props.scoreNum}</h1>
           <div className="score__button" onClick={clickHandler}>

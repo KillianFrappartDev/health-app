@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import Quizz from '../Quizz/Quizz';
 import './Modal.css';
 
+
+
 function Modal(props) {
+  const [round, setRound] = useState(1);
+
+  function nextRound() {
+    let helper = round;
+    helper++;
+    setRound(helper);
+  }
+
     return (
       <React.Fragment>
         <div onClick={props.closeAction} className="backdrop"></div>
         <div className="modal">
-          <input onChange={props.scoreAction} className="modal__input" type="text" />
-          <div onClick={props.sumAction} className="modal__submit">
-            OK
-          </div>
+          <Quizz round={round} nextRound={nextRound} sumAction={props.sumAction} />
         </div>
       </React.Fragment>
     );

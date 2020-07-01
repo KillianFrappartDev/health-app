@@ -2,7 +2,8 @@ const initialState = {
     id: null,
     token: null,
     isAuthenticated: false,
-    name: ""
+    name: "",
+    score: 0
 };
 
  
@@ -16,11 +17,19 @@ switch (action.type) {
       isAuthenticated: true
     };
 
-  case "NAME":
+  case "DATA":
     return {
       ...state,
-      name: action.payload.name
+      name: action.payload.name,
+      score: action.payload.score
     };
+
+  case "SCORE":
+    return {
+      ...state,
+      score: action.payload.score
+    }
+    
   default:
     return state;
 }
