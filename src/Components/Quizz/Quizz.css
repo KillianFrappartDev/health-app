@@ -51,3 +51,18 @@
     color: #a2de96;
     margin-left: 1rem;
 }
+
+@media screen and (max-width: 600px) {
+    .quizz__title {
+        font-size: 2rem;
+    }
+
+    .quizz__question {
+        font-size: 1.2rem;
+    }
+
+    .quizz__answer {
+        width: 5rem;
+        height: 3rem;
+    }
+}

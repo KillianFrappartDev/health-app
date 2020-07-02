@@ -26,3 +26,10 @@
   .modal__submit {
     border: 1px black solid;
   }
+
+  @media screen and (max-width: 600px) {
+    .modal {
+      width: 100%;
+      height: 80vh;
+    }
+  }
