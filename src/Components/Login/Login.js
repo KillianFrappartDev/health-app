@@ -25,6 +25,54 @@ function Login() {
     setName(e.target.value);
   }
 
+  function initUser(id) {
+    axios
+    .get(`https://health-app-13120.firebaseio.com/USERS.json`)
+    .then((response) => {
+      console.log(response.data);
+      let name;
+      for (const key in response.data) {
+        for (const code in response.data[key]) {
+          if (response.data[key][code].id === id) {
+            console.log("WORKED");
+            name = response.data[key][code].name;
+            dispatch({
+              type: "DATA",
+              payload: {
+                name: response.data[key][code].name,
+                score: response.data[key][code].score,
+              },
+            });
+          }
+        }
+      }
+      console.log(name);
+      
+      return name;
+    })
+    .then((name) => {
+      axios
+      .get(`https://health-app-13120.firebaseio.com/DAYS/${name}.json`)
+      .then((response) => {
+        const newArr = [];
+        console.log("!!!!");
+        console.log(response.data);
+        const newItem = response.data;
+        for (const key in newItem) {
+            newArr.push(newItem[key]);
+        }
+        return newArr;
+      })
+      .then((resArr) => {
+        dispatch({ type: "SET", payload: { daysArray: resArr } });
+      })
+      .then((res) => {
+      })
+      .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
+  }
+
   function signUpHandler() {
     axios
       .post(
@@ -38,9 +86,12 @@ function Login() {
           payload: { id: response.data.localId, token: response.data.idToken },
         });
         console.log("SIGNED UP");
+        initUser(response.data.localId);
         axios
           .post(`https://health-app-13120.firebaseio.com/USERS/${name}.json`, { name: name, id: response.data.localId, score: "0" })
-          .then((res) => console.log(res))
+          .then((res) => {
+            dispatch({type: "DATA", payload: {name: name, score: 0}});
+          })
           .catch((err) => console.log(err));
       })
       .catch((error) => {
@@ -61,6 +112,7 @@ function Login() {
           payload: { id: response.data.localId, token: response.data.idToken },
         });
         console.log("SIGNED IN");
+        initUser(response.data.localId);
       })
       .catch((error) => {
         console.log(error);

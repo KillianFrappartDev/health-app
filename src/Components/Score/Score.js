@@ -24,41 +24,46 @@ function sumHandler(result) {
   const helperNum = parseInt(result) + parseInt(currentScore);
   const fakeId = Math.random();
   const curDate = new Date().toDateString();
+  let helperUrl;
+  console.log("AAAAAAAA" + userName);
+  
 
   axios
-    .get(`https://health-app-13120.firebaseio.com/USERS/${userName}.json`)
-    .then((response) => {
-      console.log(response.data);
-      return response.data;
+    .post(`https://health-app-13120.firebaseio.com/DAYS/${userName}.json`, {
+      date: curDate,
+      score: result,
+      id: fakeId,
     })
-    .then((url) => {
-      console.log(url);
-      const helperUrl = Object.keys(url);
-      console.log(helperUrl);
-
+    .then((response) => {
+      dispatch({
+        type: "ADD",
+        payload: { date: curDate, score: result, id: fakeId },
+      });
+    })
+    .then(() => {
       axios
-        .patch(
-          `https://health-app-13120.firebaseio.com/USERS/${userName}/${helperUrl[0]}.json`,
-          {
-            score: helperNum.toString(),
-          }
-        )
-        .then((response) =>
-          dispatch({ type: "SCORE", payload: { score: helperNum } })
-        )
+        .get(`https://health-app-13120.firebaseio.com/USERS/${userName}.json`)
         .then((response) => {
+          console.log(response.data);
+          return response.data;
+        })
+        .then((url) => {
+          console.log(url);
+          helperUrl = Object.keys(url);
+          console.log(helperUrl);
+        })
+        .then(() => {
           axios
-            .post(`https://health-app-13120.firebaseio.com/DAYS/${userName}.json`, {
-              date: curDate,
-              score: result,
-              id: fakeId,
-            })
-            .then((response) => {
-              dispatch({
-                type: "ADD",
-                payload: { date: curDate, score: result, id: fakeId },
-              });
-            })
+            .patch(
+              `https://health-app-13120.firebaseio.com/USERS/${userName}/${helperUrl[0]}.json`,
+              {
+                score: helperNum.toString(),
+              }
+            )
+            .then((response) =>
+              dispatch({ type: "SCORE", payload: { score: helperNum } })
+            )
+            .then((response) => {})
             .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
