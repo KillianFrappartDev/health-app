@@ -51,3 +51,26 @@
 .icon-linkedin {
     color: #0072b1;
   }
+
+  @media screen and (max-width: 600px) {
+      .footer__title {
+          font-size: 2rem;
+      }
+
+      .footer__button {
+          width: 8rem;
+          height: 3rem;
+          font-size: 1.5rem;
+      }
+
+      .footer__social {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+      }
+
+      .footer__social-icon {
+          margin: 0 0.5rem;
+      }
+
+  }

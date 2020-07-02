@@ -19,3 +19,15 @@
     margin-top: 2rem;
     margin-bottom: 0;
 }
+
+@media screen and (max-width: 600px) {
+    .features {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .feature {
+        margin: 1rem auto;
+        width: 80%;
+    }
+}
