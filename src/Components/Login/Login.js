@@ -74,6 +74,10 @@ function Login() {
   }
 
   function signUpHandler() {
+    if (email.trim() === "" || name.trim() === "" || password.trim() === "") {
+      alert("Fields can not be empty and password must be at least 6 digits");
+      return;
+    }
     axios
       .post(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBcf8K9jsw8-d3k9d1OMiDdkxYoTL3uyT0",
@@ -95,6 +99,7 @@ function Login() {
           .catch((err) => console.log(err));
       })
       .catch((error) => {
+        alert("Error, password must be at least 6 digits long");
         console.log(error);
       });
   }
@@ -115,6 +120,7 @@ function Login() {
         initUser(response.data.localId);
       })
       .catch((error) => {
+        alert("Error");
         console.log(error);
       });
   }
