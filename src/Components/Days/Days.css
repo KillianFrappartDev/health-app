@@ -6,3 +6,12 @@
     justify-content: flex-start;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 600px) {
+    .days {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+}

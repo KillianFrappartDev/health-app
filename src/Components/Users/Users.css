@@ -2,3 +2,9 @@
     width: 50%;
     margin: 6rem auto;
 }
+
+@media screen and (max-width: 600px) {
+    .users {
+        width: 100%;
+    }
+}
